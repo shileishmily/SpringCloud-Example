@@ -1,0 +1,25 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: gateway-zuul
+
+eureka:
+  instance:
+    hostname: localhost
+    server:
+      port: 8761
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.server.port}/eureka/
+
+zuul:
+  prefix: /proxy                            # url同一前缀,http://localhost:9527/proxy/api-user/user/info?accessToken=2222222
+  routes:
+    api-user:                               # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /api-user/**                    # 想要映射到的路径
+      serviceId: user-service-provider     # Eureka中的serviceId
+    api-order:                             # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /api-order/**                  # 想要映射到的路径
+      serviceId: order-service-provider   # Eureka中的serviceId

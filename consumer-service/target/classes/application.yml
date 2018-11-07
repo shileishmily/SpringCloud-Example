@@ -1,0 +1,34 @@
+server:
+  port: 1114
+
+spring:
+  application:
+    name: service-consumer
+  zipkin:
+    base-url: http://localhost:9530  # zipkin服务端地址
+  sleuth:
+    sampler:
+      percentage: 1.0     #sleuth采样率，默认为0.1，值越大收集越及时，但性能影响也越大
+
+eureka:
+  instance:
+    hostname: localhost
+    server:
+      port: 8761
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.server.port}/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+ command:
+  default:
+   execution:
+    isolation:
+     thread:
+      timeoutInMilliseconds: 10000
+
+

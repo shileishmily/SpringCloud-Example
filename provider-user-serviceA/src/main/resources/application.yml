@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: user-service-provider
+  zipkin:
+    base-url: http://localhost:9530  # zipkin服务端地址
+  sleuth:
+    sampler:
+      percentage: 1.0     #sleuth采样率，默认为0.1，值越大收集越及时，但性能影响也越大
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
